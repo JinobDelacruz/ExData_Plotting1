@@ -27,7 +27,8 @@ c <- rbind(a,b)
 c$DateTime <- strptime(paste(as.character(as.Date(gsub("2/","02",gsub("1/","01",c$Date)),format="%d%m%Y")),c$Time),"%Y-%m-%d %H:%M:%S")
 
 ## 5. Generates Plot 2
-plot(as.numeric(c$Global_active_power), c$Datetime, type="l", xlab="", ylab="Global Active Power (kilowatts)")
+plot(as.numeric(c$Global_active_power), c$Datetime, type="l", xaxt="n", xlab="", ylab="Global Active Power (kilowatts)")
+axis(1, at=c(0,1440,2880),labels=c("Thu","Fri","Sat"))
 
 ## 6. Copy into a PNG file
 dev.copy(png, file="plot2.png")

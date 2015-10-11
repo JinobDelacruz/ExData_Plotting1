@@ -30,22 +30,30 @@ c$DateTime <- strptime(paste(as.character(as.Date(gsub("2/","02",gsub("1/","01",
 par(mfrow=c(2,2))
 
 ## 1,1
-plot(as.numeric(c$Global_active_power), c$Datetime, type="l", xlab="", ylab="Global Active Power (kilowatts)")
+plot(as.numeric(c$Global_active_power), c$Datetime, type="l", xaxt="n", xlab="", ylab="Global Active Power")
+axis(1, at=c(0,1440,2880),labels=c("Thu","Fri","Sat"))
 
 ## 1,2
-plot(as.numeric(c$Voltage), c$Datetime, type="l", xlab="datetime", ylab="Voltage")
+plot(as.numeric(c$Voltage), c$Datetime, type="l", xaxt="n", yaxt="n", xlab="datetime", ylab="Voltage")
+axis(1, at=c(0,1440,2880),labels=c("Thu","Fri","Sat"))
+axis(2, at=c(234,236,238,240,242,244,246), labels=c("234","","238","",242,"",246))
 
 ## 2,1
-plot(as.numeric(c$Sub_metering_1), c$Datetime, type="n", xlab="", ylab="Energy sub metering")
+plot(as.numeric(c$Sub_metering_1), c$Datetime, type="n", xaxt="n", xlab="", ylab="Energy sub metering")
 lines(as.numeric(c$Sub_metering_1), c$Datetime, col="black")
 lines(as.numeric(c$Sub_metering_2), c$Datetime, col="red")
 lines(as.numeric(c$Sub_metering_3), c$Datetime, col="blue")
-legend( 900, 40, box.col = "white", pch ="-", col = c("black","red","blue"), legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3")) 
-##legend( 1, 1, box.col = "white", pch ="-", col = c("black","red","blue"), legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))  
+axis(1, at=c(0,1440,2880),labels=c("Thu","Fri","Sat"))
+legend("topright", inset=.01, box.col = "white", lwd ="1", col = c("black","red","blue"), legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3")) 
 
 ## 2,2
-plot(as.numeric(c$Global_reactive_power), c$Datetime, type="l", xlab="datetime", ylab="Global_reactive_power")
+plot(as.numeric(c$Global_reactive_power), c$Datetime, type="l", xaxt="n", yaxt="n", xlab="datetime", ylab="Global_reactive_power")
+axis(1, at=c(0,1440,2880),labels=c("Thu","Fri","Sat"))
+axis(2, at=c(0.0,0.1,0.2,0.3,0.4,0.5), labels=c("0.0","0.1","0.2","0.3","0.4","0.5"))
 
 ## 6. Copy into a PNG file
 dev.copy(png, file="plot4.png")
 dev.off()
+
+##
+par(mfrow=c(1,1))

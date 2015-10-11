@@ -27,11 +27,12 @@ c <- rbind(a,b)
 c$DateTime <- strptime(paste(as.character(as.Date(gsub("2/","02",gsub("1/","01",c$Date)),format="%d%m%Y")),c$Time),"%Y-%m-%d %H:%M:%S")
 
 ## 5. Generates Plot 2
-plot(as.numeric(c$Sub_metering_1), c$Datetime, type="n", xlab="", ylab="Energy sub metering")
+plot(as.numeric(c$Sub_metering_1), c$Datetime, type="n", xaxt="n", xlab="", ylab="Energy sub metering")
 lines(as.numeric(c$Sub_metering_1), c$Datetime, col="black")
 lines(as.numeric(c$Sub_metering_2), c$Datetime, col="red")
 lines(as.numeric(c$Sub_metering_3), c$Datetime, col="blue")
-legend("topright", pch ="-", col = c("black","red","blue"), legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))  
+axis(1, at=c(0,1440,2880),labels=c("Thu","Fri","Sat"))
+legend("topright", lwd="2", col = c("black","red","blue"), legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"))  
 
 ## 6. Copy into a PNG file
 dev.copy(png, file="plot3.png")
